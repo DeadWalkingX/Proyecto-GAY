@@ -1,0 +1,304 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flexboxgrid.css' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">    
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <link rel="stylesheet" href="{% static 'js/jquery-3.3.1.js' %}">
+    <link rel="stylesheet" href="{% static 'js/popper.js' %}">
+    <link rel="stylesheet" href="{% static 'js/j.query.validate.js' %}">
+    <link rel="stylesheet" href="{% static 'js/app.js' %}">
+
+</head>
+<body>
+    <!-----------------------NAVBAR-------------------->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Registrarse
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" onclick="pac()" href="{% url 'registro' %}">Paciente</a>
+                        <a class="dropdown-item" onclick="med()" href="{% url 'registro' %}">Medico</a>
+                        <a class="dropdown-item" onclick="rep()" href="{% url 'registro' %}">Repartidor</a>
+                      </div>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="{% url 'mantenedor' %}" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+<!-----------------------NAVBAR-------------------->
+<button>asd</button>
+<!------------------------TABLA PACIENTES------------------------>
+<h1>Listado de Pacientes</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>RUT</td>
+            <td>NOMBRE</td>
+            <td>CORREO</td>
+            <td>CELULAR</td>
+            <td>TELEFONO EMERGENCIAS</td>
+            <td>DIRECCION</td>
+            <td>FECHA NACIMIENTO</td>
+            <td>ACCIONES</td>
+        </tr>
+    </thead>
+    <tbody>
+       <tr>
+            {% if pacientes %}
+            {% for p in pacientes %}
+            <td>{{p.rut}}</td>
+            <td>{{p.nombre}}</td>
+            <td>{{p.correo}}</td>
+            <td>{{p.telefono}}</td>
+            <td>{{p.telefonoEmergencias}}</td>
+            <td>{{p.direccion}}</td>
+            <td>{{p.fechanac}}</td>
+
+
+
+            {% endfor %}
+            {% else %}
+            <h3>No hay registros</h3>
+            {% endif %}
+       </tr>
+    </tbody>
+</table>
+<!------------------------TABLA PACIENTES------------------------>
+<!------------------------TABLA MEDICOS POSTULANTES------------------------>
+<h1>Listado de Medicos Postulantes</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>RUT</td>
+            <td>NOMBRE</td>
+            <td>CORREO</td>
+            <td>CELULAR</td>
+            <td>ESPECIALIDAD</td>
+            <td>ARCHIVO</td>
+            <td>ACCIONES</td>
+        </tr>
+    </thead>
+    <tbody>
+       <tr>
+            {% if med_pos %}
+            {% for p in med_pos %}
+            <td>{{p.rut}}</td>
+            <td>{{p.nombre}}</td>
+            <td>{{p.correo}}</td>
+            <td>{{p.telefono}}</td>
+            <td>{{p.especialidad}}</td>
+            <td>{{p.archivo}}</td>
+            <td>
+                <a class="btn btn-danger" href="#editar{{r.id}}">Editar</a>
+                <a class="btn btn-danger" href="#eliminar{{r.id}}">Eliminar</a>
+            </td>
+
+            {% endfor %}
+            {% else %}
+            <h3>No hay registros</h3>
+            {% endif %}
+       </tr>
+    </tbody>
+</table>
+<!------------------------TABLA MEDICOS POSTULANTES------------------------>
+<!------------------------TABLA MEDICOS------------------------>
+<h1>Listado de Medicos</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>RUT</td>
+            <td>NOMBRE</td>
+            <td>CORREO</td>
+            <td>CELULAR</td>
+            <td>ESPECIALIDAD</td>
+            <td>ARCHIVO</td>
+            <td>ACCIONES</td>
+            
+        </tr>
+    </thead>
+    <tbody>
+       <tr>
+            {% if medicos %}
+            {% for p in medico %}
+            <td>{{p.rut}}</td>
+            <td>{{p.nombre}}</td>
+            <td>{{p.correo}}</td>
+            <td>{{p.telefono}}</td>
+            <td>{{p.especialidad}}</td>
+            <td>{{p.archivo}}</td>
+            <td>
+                <a class="btn btn-danger" href="#editar{{r.id}}">Editar</a>
+                <a class="btn btn-danger" href="#eliminar{{r.id}}">Eliminar</a>
+            </td>
+
+            {% endfor %}
+            {% else %}
+            <h3>No hay registros</h3>
+            {% endif %}
+       </tr>
+    </tbody>
+</table>
+<!------------------------TABLA MEDICOS------------------------>
+<!------------------------TABLA REPARTIDORES------------------------>
+
+<h1>Listado de Repartidores</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>RUT</td>
+            <td>NOMBRE</td>
+            <td>CORREO</td>
+            <td>CELULAR</td>
+            <td>ACCIONES</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% if repartidores %}
+        {% for r in repartidores %}
+        <tr>        
+            <td>{{r.rut}}</td>
+            <td>{{r.nombre}}</td>
+            <td>{{r.correo}}</td>
+            <td>{{r.celular}}</td>
+            <td>
+                <a class="btn btn-danger" href="#editar{{r.id}}">Editar</a>
+                <a class="btn btn-danger" href="#eliminar{{r.id}}">Eliminar</a>
+            </td>
+        </tr>
+
+        <div id="editar{{r.id}}" class="modalDialog">
+                <div>
+                  <a href="#close" title="Close" class="close">X</a>                                      
+                  <form action="editar_rep/{{r.id}}" method="POST" enctype="multipart/form-data" >
+                    {% csrf_token %}
+                    <h4>Editor</h4>
+                    <label for="Nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" value={{r.nombre}}>
+                    <label for="rut"><b>Rut</b></label>
+                    <input type="text" name="rut" id="rut" value={{r.rut}}>
+                    <label for="correo">Correo</label>
+                    <input type="email" name="correo"  value={{r.correo}}>
+                    <label for="descripcion1">Telefono</label>
+                    <input type="number" name="telefono"  value={{r.celular}}>
+                    <button class="btm btn-danger"  type="submit">Editar</button>
+                    <a class="btn btn-default" href="{% url 'mantenedor' %}">Cancelar</a>                      
+                  </form>
+                </div>
+              </div>
+              <div id="eliminar{{p.id}}" class="modalDialog">
+                <div>
+                  <a href="#close" title="Close" class="close">X</a>                                      
+                  <form action="eliminar_rep/{{r.id}}" method="POST" >
+                    {% csrf_token %}
+                    <h4>¿Esta seguro de eliminar este repartidor?</h4>
+                    <button class="btm btn-danger"  type="submit">Si, eliminar</button>
+                    <a class="btn btn-default" href="{% url 'mantenedor' %}">Cancelar</a>                      
+                  </form>
+                </div>
+              </div>
+
+
+        {% endfor %}
+        {% else %}
+        <h3>No hay registros</h3>
+        {% endif %}
+        
+    </tbody>
+</table>
+
+<!------------------------TABLA REPARTIDORES------------------------>
+<!------------------------TABLA USUARIOS------------------------>
+
+<h1>Listado de Usuarios</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>USERNAME</td>
+            <td>CONTRASEÑA</td>   
+            <td>TIPO</td> 
+            <td>OPCIONES</td>        
+        </tr>
+    </thead>
+    <tbody>
+        {% if usuarios %}
+        {% for u in usuarios %}
+        <tr>                   
+            <td>{{u.username}}</td>
+            <td>{{u.password}}</td>
+            <td>{{u.tipo}}</td>
+            <td>
+                <a class="btn btn-danger" href="#editar{{u.id}}">Editar</a>
+                <a class="btn btn-danger" href="#eliminar{{u.id}}">Eliminar</a>
+            </td>
+        </tr>
+
+        <div id="editar{{u.id}}" class="modalDialog">
+                <div>
+                  <a href="#close" title="Close" class="close">X</a>                                      
+                  <form action="editar_rep/{{u.id}}" method="POST" enctype="multipart/form-data" >
+                    {% csrf_token %}
+                    <h4>Editor</h4>
+                    <label for="Nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" value={{r.nombre}}>
+                    <label for="rut"><b>Rut</b></label>
+                    <input type="text" name="rut" id="rut" value={{r.rut}}>
+                    <label for="correo">Correo</label>
+                    <input type="email" name="correo"  value={{r.correo}}>
+                    <label for="descripcion1">Telefono</label>
+                    <input type="number" name="telefono"  value={{r.celular}}>
+                    <button class="btm btn-danger"  type="submit">Editar</button>
+                    <a class="btn btn-default" href="{% url 'mantenedor' %}">Cancelar</a>                      
+                  </form>
+                </div>
+              </div>
+              <div id="eliminar{{p.id}}" class="modalDialog">
+                <div>
+                  <a href="#close" title="Close" class="close">X</a>                                      
+                  <form action="eliminar_rep/{{r.id}}" method="POST" >
+                    {% csrf_token %}
+                    <h4>¿Esta seguro de eliminar este repartidor?</h4>
+                    <button class="btm btn-danger"  type="submit">Si, eliminar</button>
+                    <a class="btn btn-default" href="{% url 'mantenedor' %}">Cancelar</a>                      
+                  </form>
+                </div>
+              </div>
+
+
+        {% endfor %}
+        {% else %}
+        <h3>No hay registros</h3>
+        {% endif %}
+        
+    </tbody>
+</table>
+
+<!------------------------TABLA USUARIOS------------------------>
+
+
+    
+</body>
+</html>

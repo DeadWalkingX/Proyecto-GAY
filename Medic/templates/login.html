@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flexboxgrid.css' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">    
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <link rel="stylesheet" href="{% static 'js/jquery-3.3.1.js' %}">
+    <link rel="stylesheet" href="{% static 'js/popper.js' %}">
+    <link rel="stylesheet" href="{% static 'js/j.query.validate.js' %}">
+    <link rel="stylesheet" href="{% static 'js/app.js' %}">
+
+</head>
+<body>
+    <!-----------------------NAVBAR-------------------->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Registrarse
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" onclick="pac()" href="{% url 'registro' %}">Paciente</a>
+                    <a class="dropdown-item" onclick="med()" href="{% url 'registro' %}">Medico</a>
+                    <a class="dropdown-item" onclick="rep()" href="{% url 'registro' %}">Repartidor</a>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="{% url 'mantenedor' %}" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+<!-----------------------NAVBAR-------------------->
+
+
+
+
+
+  <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <form action="">
+          <h1>Que pasa maldito enfermo</h1>
+          <div class="form group">
+            <h3>Correo:</h3>
+            <input class="form-control" type="email" name="correo" placeholder="Ingresa el correo enfermo pao culiao">
+          </div>´
+          <div class="form group">
+            <h3>Contraseña:</h3>
+            <input class="form-control" type="password" name="contra" >
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <button class="btn" type="submit">Registrate</button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn" type="submit">Ingresar</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="col-md-4"></div>
+
+  </div>
+</body>
+</html>

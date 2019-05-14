@@ -1,0 +1,42 @@
+/* Documento */
+body{
+    margin: 0px;
+    padding: 0;
+    position: relative;
+}
+/* LOGO */
+header #logo{
+    background-color: #85D4B7 ;
+    align-content: center;
+    padding: 0%;
+    height: 65px;
+    border: 0px;
+}
+/* BARRA DE NAVEGACION */
+.navbar-nav{
+    width: 100%;
+    text-align: right;
+}
+/* BARRA DE NAVEGACION */
+.nav-link{
+    float: right;
+    font-size: 20px;
+}
+
+#form_pac{
+  background-color: aqua;
+  display: block;
+  visibility: visible;
+}
+
+#form_med{
+  background-color: rgb(28, 46, 46);
+  display: block;
+  visibility: visible;
+}
+
+#form_rep{
+  background-color: rgb(172, 56, 123);
+  display: block;
+  visibility: visible;
+}

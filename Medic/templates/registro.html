@@ -1,0 +1,200 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index</title>
+    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">    
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flexboxgrid.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+   
+    
+
+</head>
+<body>
+    <!-----------------------NAVBAR-------------------->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{% url 'registro' %}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Registrarse
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <a class="dropdown-item" onclick="pac()" href="{% url 'registro' %}">Paciente</a>
+                          <a class="dropdown-item" onclick="med()" href="{% url 'registro' %}">Medico</a>
+                          <a class="dropdown-item" onclick="rep()" href="{% url 'registro' %}">Repartidor</a>
+                        </div>
+                      </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="{% url 'mantenedor' %}" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+<!-----------------------NAVBAR-------------------->    
+
+<button onclick="pac()">Paciente</button>
+<button onclick="med()">Medico</button>
+<button onclick="rep()">Repartidor</button>
+<div class="form_pac" id="form_pac">
+    
+    <form action="{% url 'agregar_pac' %}" id="form_c_pac" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-4">
+                
+            </div>
+            <div class="col-md-4">
+                <h2>Porfavor ingrese su datos correctamente(Paciente)</h2>
+                <div class="form-group">
+                    <label for="correo1">Correo electronico</label>
+                    <input type="email" class="form-control" name="correo" id="correo1" placeholder="Ingrese su correo electronico">
+                    <small id="emailHelp" class="form-text text-muted">Nunca mostraremos su correo a nadie fuera de la aplicacion</small>
+                </div>
+                <div class="form-group">
+                    <label for="contra">Contraseña</label>
+                    <input type="password" class="form-control" name="contra" id="contra" placeholder="Ingrese su contraseña">
+                </div>
+                <div class="form-group">
+                    <label for="nom">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="nom" placeholder="Ingrese su nombre completo">                    
+                </div>
+                <div class="form-group">
+                    <label for="rut">RUT</label>
+                    <input type="text" class="form-control" id="rut" name="rut" placeholder="Ingrese su RUT">                    
+                </div>
+                <div class="form-group">
+                    <label for="fecnac">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" id="date" name="fechanac" placeholder="Ingrese su fecha de nacimiento">                    
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Telefono</label>
+                    <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su numero de telefono">                    
+                </div>
+                <div class="form-group">
+                    <label for="telefono2">Telefono Emergencias</label>
+                    <input type="number" class="form-control" id="telefono2" name="telefono2" placeholder="Ingrese el numero de telefono de un contacto en caso de emergencias">                    
+                </div>
+                <div class="form-group">
+                    <label for="direc">Direccion</label>
+                    <input type="text" class="form-control" name="direc" id="direc" placeholder="Ingrese su direccion">                    
+                </div>
+               
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>  
+            <div class="col-md-4"></div>          
+        </div>
+    </form>
+</div>
+<div class="form_pac" id="form_pac">
+    
+    <form id="form_c_med" action="{% url 'agregar_med_pos' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                    <h2>Porfavor ingrese su datos correctamente(Medico)</h2>
+                    <div class="form-group">
+                        <label for="correo1">Correo electronico</label>
+                        <input type="email" class="form-control" name="correo" id="correo1" placeholder="Ingrese su correo electronico">
+                        <small id="emailHelp" class="form-text text-muted">Nunca mostraremos su correo a nadie fuera de la aplicacion</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="contra">Contraseña</label>
+                        <input type="password" class="form-control" name="contra" id="contra" placeholder="Ingrese su contraseña">
+                    </div>
+                    <div class="form-group">
+                        <label for="nom">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nom" placeholder="Ingrese su nombre completo">                    
+                    </div>
+                    <div class="form-group">
+                        <label for="rut">RUT</label>
+                        <input type="text" class="form-control" name="rut" id="rut" placeholder="Ingrese su RUT">                    
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Telefono</label>
+                        <input type="number" class="form-control" name="telefono" id="telefono" placeholder="Ingrese su numero de telefono">                    
+                    </div>
+                    <div class="form-group">
+                        <label for="esp">Especialidad medica</label>
+                        <select class="form-control" name="especialidad" name="especialidad" id="esp" >
+                            <option value="">1</option>
+                        </select>                   
+                    </div>
+                    <div class="form-group">
+                        <label for="archivo">Suba su titulo porfavor</label>
+                        <input type="file" class="form-control-file" name="archivo" id="archivo">
+                    </div>
+                   
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+        
+        
+            </div>  
+            <div class="col-md-4"></div>
+        </div>
+    </form>
+</div>
+<div id="form_rep">
+    
+    <form id="form_c_rep" action="{% url 'agregar_rep' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                        <h2>Porfavor ingrese su datos correctamente(Repartidor)</h2>
+                        <div class="form-group">
+                            <label for="correo1">Correo electronico</label>
+                            <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingrese su correo electronico">
+                            <small id="emailHelp" class="form-text text-muted">Nunca mostraremos su correo a nadie fuera de la aplicacion</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="contra">Contraseña</label>
+                            <input type="password" class="form-control" id="contra" name="contra" placeholder="Ingrese su contraseña">
+                        </div>
+                        <div class="form-group">
+                            <label for="nom">Nombre</label>
+                            <input type="text" class="form-control" id="nom" name="nombre" placeholder="Ingrese su nombre completo">                    
+                        </div>
+                        <div class="form-group">
+                            <label for="rut">RUT</label>
+                            <input type="text" class="form-control" id="rut" name="rut" placeholder="Ingrese su RUT">                    
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Telefono</label>
+                            <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su numero de telefono">                    
+                        </div>
+                      
+                       
+                        
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </form>
+    </div>
+        
+    <script src="{% static 'js/jquery-3.3.1.js' %}"></script>    
+    <script src="{% static 'js/popper.js' %}s"></script>
+    <script src="{% static 'js/j.query.validate.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+
+</html>
