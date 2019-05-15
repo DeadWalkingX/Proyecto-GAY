@@ -6,11 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>index</title>
-    
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">    
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/flexboxgrid.css' %}">
     <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
    
     
@@ -19,11 +16,11 @@
 <body>
     <!-----------------------NAVBAR-------------------->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#">MedicApp</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
                       <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
@@ -33,9 +30,9 @@
                           Registrarse
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <a class="dropdown-item" onclick="pac()" href="{% url 'registro' %}">Paciente</a>
-                          <a class="dropdown-item" onclick="med()" href="{% url 'registro' %}">Medico</a>
-                          <a class="dropdown-item" onclick="rep()" href="{% url 'registro' %}">Repartidor</a>
+                          <a class="dropdown-item" onclick="pac()" >Paciente</a>
+                          <a class="dropdown-item" onclick="med()" >Medico</a>
+                          <a class="dropdown-item" onclick="rep()" >Repartidor</a>
                         </div>
                       </li>
                     <li class="nav-item">
@@ -49,10 +46,7 @@
         </nav>
 <!-----------------------NAVBAR-------------------->    
 
-<button onclick="pac()">Paciente</button>
-<button onclick="med()">Medico</button>
-<button onclick="rep()">Repartidor</button>
-<div class="form_pac" id="form_pac">
+<div id="form_pac">
     
     <form action="{% url 'agregar_pac' %}" id="form_c_pac" method="POST">
         {% csrf_token %}
@@ -103,7 +97,7 @@
         </div>
     </form>
 </div>
-<div class="form_pac" id="form_pac">
+<div  id="form_med">
     
     <form id="form_c_med" action="{% url 'agregar_med_pos' %}" method="post">
         {% csrf_token %}
@@ -191,8 +185,9 @@
         </form>
     </div>
         
-    <script src="{% static 'js/jquery-3.3.1.js' %}"></script>    
-    <script src="{% static 'js/popper.js' %}s"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>   
     <script src="{% static 'js/j.query.validate.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
 </body>

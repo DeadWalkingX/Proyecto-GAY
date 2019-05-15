@@ -30,7 +30,7 @@ header #logo{
 }
 
 #form_med{
-  background-color: rgb(28, 46, 46);
+  background-color: coral;
   display: block;
   visibility: visible;
 }
@@ -39,4 +39,8 @@ header #logo{
   background-color: rgb(172, 56, 123);
   display: block;
   visibility: visible;
+}
+
+#img_tno{
+    height: 40px;
 }
