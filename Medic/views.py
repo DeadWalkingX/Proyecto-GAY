@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Paciente, Medico, Repartidor, MedicoPostulante
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -24,7 +25,22 @@ def mantenedor(request):
     med_pos = MedicoPostulante.objects.all()
     contexto = {'pacientes':pacientes, 'medicos':medicos, 'repartidores':repartidores,'usuarios':usuarios, 'med_pos':med_pos}
     return render(request, 'mantenedor.html', contexto)
+#LOGIN
 
+def login_iniciar(request):
+    username = request.POST.get('correo')
+    password = request.POST.get('contra')
+    user = authenticate(request,username=username, password=password)
+    print(username,password)
+    if user is not None:
+        login(request, user)
+        return HttpResponse('<script>alert("Inicio de sesión correcto."); window.location.href="/";</script>')
+    else:
+        return HttpResponse('<script>alert("Ocurrió un error, intenta nuevamente..."); window.location.href="/";</script>')
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
 
 # CRUD Pacientes
 

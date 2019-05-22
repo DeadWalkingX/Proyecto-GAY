@@ -15,8 +15,8 @@
 </head>
 <body>
     <!-----------------------NAVBAR-------------------->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">MedicApp</a>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" role="navigation" style="background-color: rgba(32, 62, 163, 1)  ;">
+            <a class="navbar-brand" href="#"> <img class="img-fluid" src="{% static 'img/Logo.png' %}" id="img_tno"  alt="Logo"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -39,20 +39,21 @@
                       <a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link disabled" href="{% url 'mantenedor' %}" tabindex="-1" aria-disabled="true">Disabled</a>
+                      <a class="nav-link active" href="{% url 'mantenedor' %}" >Disabled</a>
                     </li>
                 </ul>
             </div>
         </nav>
+      
 <!-----------------------NAVBAR-------------------->    
 
 <div id="form_pac">
-    
+       
     <form action="{% url 'agregar_pac' %}" id="form_c_pac" method="POST">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-4">
-                
+                    <img src="{% static 'img/fichero.jpg' %}" style="height: 350px; margin: 20px;">
             </div>
             <div class="col-md-4">
                 <h2>Porfavor ingrese su datos correctamente(Paciente)</h2>
@@ -102,7 +103,9 @@
     <form id="form_c_med" action="{% url 'agregar_med_pos' %}" method="post">
         {% csrf_token %}
         <div class="row">
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                    <img src="{% static 'img/fichero.jpg' %}" style="height: 350px; margin: 20px;">
+            </div>
             <div class="col-md-4">
                     <h2>Porfavor ingrese su datos correctamente(Medico)</h2>
                     <div class="form-group">
@@ -151,7 +154,9 @@
     <form id="form_c_rep" action="{% url 'agregar_rep' %}" method="post">
             {% csrf_token %}
             <div class="row">
-                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                        <img src="{% static 'img/fichero.jpg' %}" style="height: 350px; margin: 20px;">
+                </div>
                 <div class="col-md-4">
                         <h2>Porfavor ingrese su datos correctamente(Repartidor)</h2>
                         <div class="form-group">

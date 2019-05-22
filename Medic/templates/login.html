@@ -13,35 +13,36 @@
 </head>
 <body>
     <!-----------------------NAVBAR-------------------->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">MedicApp</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="{% url 'registro' %}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Registrarse
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" onclick="pac()" href="{% url 'registro' %}">Paciente</a>
-                    <a class="dropdown-item" onclick="med()" href="{% url 'registro' %}">Medico</a>
-                    <a class="dropdown-item" onclick="rep()" href="{% url 'registro' %}">Repartidor</a>
-                  </div>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" role="navigation" style="background-color: rgba(32, 62, 163, 1)  ;">
+        <a class="navbar-brand" href="#"> <img class="img-fluid" src="{% static 'img/Logo.png' %}" id="img_tno"  alt="Logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
                 </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="{% url 'mantenedor' %}" tabindex="-1" aria-disabled="true">Disabled</a>
-              </li>
-          </ul>
-      </div>
-  </nav>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{% url 'registro' %}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Registrarse
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" onclick="pac()" href="{% url 'registro' %}">Paciente</a>
+                      <a class="dropdown-item" onclick="med()" href="{% url 'registro' %}">Medico</a>
+                      <a class="dropdown-item" onclick="rep()" href="{% url 'registro' %}">Repartidor</a>
+                    </div>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'mantenedor' %}" >Disabled</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+  
 <!-----------------------NAVBAR-------------------->
 
 
@@ -51,7 +52,7 @@
   <div class="row">
       <div class="col-md-4"></div>
       <div class="col-md-4">
-        <form action="">
+        <form action="{% url 'iniciar' %}">
           <h1>Inicio Sesion</h1>
           <div class="form-group">
             <h3>Correo:</h3>
@@ -63,7 +64,7 @@
           </div>
           <div class="row">
             <div class="col-md-6">
-              <button class="btn" type="submit">Registrate</button>
+              <button class="btn" href="{% url 'registro' %}">Registrate</button>
             </div>
             <div class="col-md-6">
               <button class="btn" type="submit">Ingresar</button>
@@ -75,6 +76,85 @@
       <div class="col-md-4"></div>
 
   </div>
+
+
+
+
+
+        <!-----------FOOTER-->
+
+<!-- Footer -->
+<footer style="background-color: rgba(32, 62, 163, 1)" class="page-footer fixed-bottom font-small pt-4">
+
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left">
+  
+      <!-- Grid row -->
+      <div class="row">
+  
+        <!-- Grid column -->
+        <div class="col-md-6 mt-md-0 mt-3">
+  
+          <!-- Content -->
+          <h5 class="text-uppercase">Footer Content</h5>
+          <p>Here you can use rows and columns to organize your footer content.</p>
+  
+        </div>
+        <!-- Grid column -->
+  
+        <hr class="clearfix w-100 d-md-none pb-3">
+  
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+  
+          <!-- Links -->
+          <h5 class="text-uppercase">Links</h5>
+  
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!">Link 1</a>
+            </li>
+            <li>
+              <a href="#!">Link 2</a>
+            </li>
+          </ul>
+  
+        </div>
+        <!-- Grid column -->
+  
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+  
+          <!-- Links -->
+          <h5 class="text-uppercase">Links</h5>
+  
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!">Link 1</a>
+            </li>
+            <li>
+              <a href="#!">Link 2</a>
+            </li>
+
+          </ul>
+  
+        </div>
+        <!-- Grid column -->
+  
+      </div>
+      <!-- Grid row -->
+  
+    </div>
+    <!-- Footer Links -->
+  
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
