@@ -17,6 +17,11 @@ def registro(request):
 def iniciar(request):
     return render(request,'login.html')
 
+def listadoPac(request):
+    return render(request,"pacientes.html")
+def observacion(request):
+    return render(request,"observacion.html")    
+
 def mantenedor(request):
     pacientes = Paciente.objects.all()
     medicos = Medico.objects.all()
@@ -53,8 +58,11 @@ def crear_pac(request):
     telefono = request.POST.get('telefono')
     telefonoEmergencias = request.POST.get('telefono2')
     direccion = request.POST.get('direc')
+    observacion = request.POST.get('observacion')
+    estado = request.POST.get('estado')
     pac = Paciente(rut=rut, correo=correo, nombre=nombre, fechanac=fechanac,
-     telefono=telefono, telefonoEmergencias=telefonoEmergencias, direccion=direccion)
+     telefono=telefono, telefonoEmergencias=telefonoEmergencias, direccion=direccion,
+     observacion = observacion, estado = estado)
     pac.save()
     user = User.objects.create_user(username=correo,email=correo,password=contra)
     user.save()

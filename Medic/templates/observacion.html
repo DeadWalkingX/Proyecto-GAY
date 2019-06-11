@@ -39,68 +39,54 @@
                 <a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="{% url 'informacion' %}" >Informacion de pacientes</a>
+                <a class="nav-link active" href="{% url 'mantenedor' %}" >Disabled</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="{% url 'observacion' %}" >Observacion para paciente  </a>
+                <a class="nav-link active" href="{% url 'informacion' %}" >Informacion de pacientes</a>
               </li>
           </ul>
       </div>
   </nav>
-
-  
 <!-----------------------NAVBAR-------------------->
-    <h1 align = center  >Bienvenidos a MedicApp</h1>
-    <center><img src="{% static 'img/pacientes5.jpg'%}" class="img-fluid"  style="margin: 20px; height: 450px; " ></center>
-    
-    <div class="row" style="margin-top: 60px;">
-      <div class="col-md-6" style="text-align:center; margin-left: 40px; margin-right: 20px;">
-        <h2>¿ Que es MedicApp ?</h2>
-        <p style="font-size: large;">
-          La idea principal de MedicApp es ayudar a las personas que no pueden salir de sus casas para asistir a una
-          consulta medica. Entregaremos un servicio de conectividad entre pacientes y medicos ademas de repartidores,
-          para compra de medicamentos. 
 
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-          
-        </p>
-        <img src="{% static 'img/medicos2.jpg' %}" alt="Medicos" class="img-fluid" style="height: 200px;">
-      </div>
-      <div class="col-md-5"  style="text-align:center; margin-left: 20px; margin-right: 40px;" >
-        <h2>¿ Como funciona MedicApp ?</h2>
-        <p style="font-size: large;">
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            
-        </p>
-        <img src="{% static 'img/medicos3.jpg' %}" alt="Medicos" class="img-fluid" style="height: 150px;">
-      </div>
-    </div>
-    <div class="row" style="margin-top: 60px;">
-        <div class="col-md-6" style="text-align:center; margin-left: 40px; margin-right: 20px;">
-          <h2>Objetivos de MedicApp</h2>
-          <p style="font-size: large;">          
-  
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            
-          </p>
-          
+
+<div id="form">
+       
+    <form action="{% url 'agregar_pac' %}" id="form_c_pac" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <h2>Observacion de paciente atendido</h2>
+                <div class="form-group">
+                    <label for="nom">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="nom" placeholder="Ingrese nombre completo del paciente">                    
+                </div>
+                <div class="form-group">
+                    <label for="rut">RUT</label>
+                    <input type="text" class="form-control" id="rut" name="rut" placeholder="Ingrese RUT del paciente">                    
+                </div>
+                <div class="form-group">
+                    <label for="fecnac">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" id="date" name="fechanac" placeholder="Ingrese fecha de nacimiento del paciente">                    
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Observacion</label>
+                    <textarea class="form-control"name="observacion"id="observacion" rows="4" cols="40" placeholder="Ingrese sintomas del paciente"></textarea>                    
+                </div>  
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>  
+            <div class="col-md-4"></div>          
         </div>
-        <div class="col-md-5"  style="text-align:center; margin-left: 20px; margin-right: 40px;" >
-          <h2>Benificios de MedicApp</h2>
-          <p style="font-size: large;">
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-              
-          </p>
-          
-        </div>
-      </div>
+    </form>
+    <br>
+</div>
 
-
-
-      <!-----------FOOTER-->
+<!-----------------------FOOTER-------------------->
 
 <!-- Footer -->
-<footer style="background-color: rgba(32, 62, 163, 1) " class="fixed-bot page-footer  font-small pt-4">
+<footer style="background-color: rgba(32, 62, 163, 1) " class="fixed-bottom page-footer  font-small pt-4">
 
     <!-- Footer Links -->
     <div  style="color: white;" class="container-fluid text-center text-md-left">
@@ -145,7 +131,7 @@
             <li>
               <a >+569 4876 2924</a>
             </li>
-
+  
           </ul>
   
         </div>
@@ -166,13 +152,13 @@
   </footer>
   <!-- Footer -->
     
-
-
-
+  
+  
+  
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>   
     <script src="{% static 'js/j.query.validate.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
-</body>
-</html>
+  </body>
+  </html>
