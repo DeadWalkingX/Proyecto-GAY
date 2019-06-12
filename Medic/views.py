@@ -17,6 +17,12 @@ def registro(request):
 def iniciar(request):
     return render(request,'login.html')
 
+def exp(request):
+    return render(request,'horariosM.html')
+
+def defHora(request):
+    return render(request, 'asignarHorarios.html')
+
 def mantenedor(request):
     pacientes = Paciente.objects.all()
     medicos = Medico.objects.all()

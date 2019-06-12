@@ -11,6 +11,9 @@ urlpatterns = [
     path('registro/', views.registro, name="registro"),
     path('login/', views.iniciar, name="login"),
     path('mantenedor/', views.mantenedor, name="mantenedor"),
+    path('asignarHorarios/', views.defHora, name="tomarHorarios" ),
+
+    path('ex/', views.exp, name ="ex"),
     #Login
     path('login/in', views.login_iniciar, name="iniciar"),
     #Links para CRUD

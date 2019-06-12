@@ -17,6 +17,8 @@ class Medico(models.Model):
     archivo = models.FileField(upload_to='archivos/Medico/')
     especialidad = models.CharField(max_length=100)
     correo = models.CharField(max_length=100)
+    horaInicio = models.IntegerField()
+    horaFin = models.IntegerField()
 
 class MedicoPostulante(models.Model):
     rut = models.CharField(max_length=100)
