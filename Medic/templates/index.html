@@ -39,7 +39,10 @@
                 <a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="{% url 'mantenedor' %}" >Disabled</a>
+                <a class="nav-link active" href="{% url 'informacion' %}" >Informacion de pacientes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'observacion' %}" >Observacion para paciente  </a>
               </li>
               <li class="nav-item">
                   <a class="nav-link active" href="{% url 'ex' %}" >ex</a>
@@ -67,7 +70,7 @@
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
           
         </p>
-        <img src="{% static 'img/medicos2.jpg' %}" alt="Medicos" style="height: 200px;">
+        <img src="{% static 'img/medicos2.jpg' %}" alt="Medicos" class="img-fluid" style="height: 200px;">
       </div>
       <div class="col-md-5"  style="text-align:center; margin-left: 20px; margin-right: 40px;" >
         <h2>¿ Como funciona MedicApp ?</h2>
@@ -75,7 +78,7 @@
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
             
         </p>
-        <img src="{% static 'img/medicos3.jpg' %}" alt="Medicos" style="height: 150px;">
+        <img src="{% static 'img/medicos3.jpg' %}" alt="Medicos" class="img-fluid" style="height: 150px;">
       </div>
     </div>
     <div class="row" style="margin-top: 60px;">

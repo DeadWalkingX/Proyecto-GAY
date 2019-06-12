@@ -9,6 +9,8 @@ urlpatterns = [
     #Link de navegacion
     path('', views.index, name="index"), 
     path('registro/', views.registro, name="registro"),
+    path('informacion/', views.listadoPac, name="informacion"),
+    path('observacion/', views.observacion, name="observacion"),
     path('login/', views.iniciar, name="login"),
     path('mantenedor/', views.mantenedor, name="mantenedor"),
     path('asignarHorarios/', views.defHora, name="tomarHorarios" ),
