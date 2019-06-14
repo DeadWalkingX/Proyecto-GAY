@@ -25,197 +25,175 @@
                     <li class="nav-item active">
                       <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{% url 'registro' %}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Registrarse
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <a class="dropdown-item" onclick="pac()" >Paciente</a>
-                          <a class="dropdown-item" onclick="med()" >Medico</a>
-                          <a class="dropdown-item" onclick="rep()" >Repartidor</a>
-                        </div>
+      
+                    <li class="nav-item">
+                      <a class="nav-link active" href="{% url 'informacion' %}" >Informacion de pacientes</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="{% url 'observacion' %}" >Observacion para paciente  </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'ex' %}" >ex</a>
                       </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a>
+                      <a class="nav-link" href="{% url 'tomarHorarios' %}"></a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" href="{% url 'mantenedor' %}" >Disabled</a>
+                </ul>
+                <ul class="navbar-nav ml-auto" >
+                  {% if user.is_authenticated %}
+                  <li class="nav-item dropdown">
+                      <a class="nav-link active" href="{% url 'Usuarios:logout' %}" >Cerrar Sesion</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registro' %}">Registrarse</a>
                     </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'Usuarios:log' %}">Iniciar sesion</a>
+                  </li>
+      
+                  {% endif %}
+      
+      
                 </ul>
             </div>
         </nav>
-      
-<!-----------------------NAVBAR-------------------->    
+<!-----------------------NAVBAR--------------------> 
 
-<div id="form_pac">
-       
-    <form action="{% url 'agregar_pac' %}" id="form_c_pac" method="POST">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-md-4">
-                    <img src="{% static 'img/fichero.jpg' %}" class="img-fluid" style="height: 350px; margin: 20px;">
-            </div>
-            <div class="col-md-4">
+
+
+
+<h1 align = center style="padding-bottom: 20px; padding-top: 20px;">Tipos de Registro</h1>
+
+<div class="row">
+    <div class="col-md-4" align = center>
+        <h3>Pacientes</h3>
+        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+        <a class="btn btn-danger" href="#form_pac">Registrarse como paciente</a>
+    </div>
+    <div class="col-md-4" align = center>
+        <h3>Medicos</h3>
+        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+        <a class="btn btn-danger" href="#form_med">Registrarse como medico</a>
+    </div>
+    <div class="col-md-4" align = center>
+        <h3>Repartidor</h3>
+        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+        <a class="btn btn-danger" href="#form_med">Registrarse como repartidor</a>
+    </div>
+</div>
+
+    <div id="form_pac" class="modalDialog">
+        <div>
+            <a href="#close" title="Close" class="close">X</a>    
+            <form action="{% url 'agregar_pac' %}" id="form_c_pac" method="POST">
+                {% csrf_token %}
                 <h2>Porfavor ingrese su datos correctamente(Paciente)</h2>
-                <div class="form-group">
-                    <label for="correo1">Correo electronico</label>
-                    <input type="email" class="form-control" name="correo" id="correo1" placeholder="Ingrese su correo electronico">
-                    <small id="emailHelp" class="form-text text-muted">Nunca mostraremos su correo a nadie fuera de la aplicacion</small>
-                </div>
-                <div class="form-group">
-                    <label for="contra">Contraseña</label>
-                    <input type="password" class="form-control" name="contra" id="contra" placeholder="Ingrese su contraseña">
-                </div>
-                <div class="form-group">
-                    <label for="nom">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" id="nom" placeholder="Ingrese su nombre completo">                    
-                </div>
-                <div class="form-group">
-                    <label for="rut">RUT</label>
-                    <input type="text" class="form-control" id="rut" name="rut" placeholder="Ingrese su RUT">                    
-                </div>
-                <div class="form-group">
-                    <label for="fecnac">Fecha de Nacimiento</label>
-                    <input type="date" class="form-control" id="date" name="fechanac" placeholder="Ingrese su fecha de nacimiento">                    
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Telefono</label>
-                    <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su numero de telefono">                    
-                </div>
-                <div class="form-group">
-                    <label for="telefono2">Telefono Emergencias</label>
-                    <input type="number" class="form-control" id="telefono2" name="telefono2" placeholder="Ingrese el numero de telefono de un contacto en caso de emergencias">                    
-                </div>
-                <div class="form-group">
-                    <label for="direc">Direccion</label>
-                    <input type="text" class="form-control" name="direc" id="direc" placeholder="Ingrese su direccion">                    
-                </div>
-               
-                
+                <label for="correo1">Correo electronico</label>
+                <input type="email" class="form-control" name="correo" id="correo1" placeholder="Ingrese su correo electronico">
+                <label for="contra">Contraseña</label>
+                <input type="password" class="form-control" name="contra" id="contra" placeholder="Ingrese su contraseña">
+                <label for="nom">Nombre</label>
+                <input type="text" class="form-control" name="nombre" id="nom" placeholder="Ingrese su nombre completo">  
+                <label for="rut">RUT</label>
+                <input type="text" class="form-control" id="rut" name="rut" placeholder="Ingrese su RUT">   
+                <label for="fecnac">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" id="date" name="fechanac" placeholder="Ingrese su fecha de nacimiento">  
+                <label for="telefono">Telefono</label>
+                <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su numero de telefono"> 
+                <label for="telefono2">Telefono Emergencias</label>
+                <input type="number" class="form-control" id="telefono2" name="telefono2" placeholder="Ingrese el numero de telefono de un contacto en caso de emergencias"> 
+                <label for="direc">Direccion</label>
+                <input type="text" class="form-control" name="direc" id="direc" placeholder="Ingrese su direccion"> 
                 <button type="submit" class="btn btn-primary">Submit</button>
-            </div>  
-            <div class="col-md-4"></div>          
+            </form>                                  
         </div>
-    </form>
+    </div>
+
+<div class="modalDialog" id="form_med">
+    <div>
+        <a href="#close" title="Close" class="close">X</a>    
+        <form id="form_c_med" action="{% url 'agregar_med_pos' %}" method="post">
+            {% csrf_token %}
+            <h2>Porfavor ingrese sus datos correctamente</h2>
+            <label for="correo1">Correo electronico</label>
+            <input type="email" class="form-control" name="correo" id="correo1" placeholder="Ingrese su correo electronico">
+            <label for="contra">Contraseña</label>
+            <input type="password" class="form-control" name="contra" id="contra" placeholder="Ingrese su contraseña">
+            <label for="nom">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="nom" placeholder="Ingrese su nombre completo">   
+            <label for="rut">RUT</label>
+            <input type="text" class="form-control" name="rut" id="rut" placeholder="Ingrese su RUT">  
+            <label for="telefono">Telefono</label>
+            <input type="number" class="form-control" name="telefono" id="telefono" placeholder="Ingrese su numero de telefono">   
+            <label for="esp">Especialidad medica</label>
+            <select class="form-control" name="especialidad" name="especialidad" id="esp" >
+                <option value="">1</option>
+            </select>                   
+            <h2>Horas de trabajo</h2>
+            <label for="">Inicio</label>
+            <select name="" id="">
+                <option value="-1">Seleccione una hora</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+            </select>
+            <label for="">Fin</label>
+            <select name="" id="">
+                    <option value="-1">Seleccione una hora</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+            </select>
+            <label for="archivo">Suba su titulo porfavor</label>
+            <input type="file" class="form-control-file" name="archivo" id="archivo">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </div>
-<div  id="form_med">
-    
-    <form id="form_c_med" action="{% url 'agregar_med_pos' %}" method="post">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-md-4">
-                    <img src="{% static 'img/fichero.jpg' %}" class="img-fluid" style="height: 350px; margin: 20px;">
-            </div>
-            <div class="col-md-4">
-                    <h2>Porfavor ingrese su datos correctamente(Medico)</h2>
-                    <div class="form-group">
-                        <label for="correo1">Correo electronico</label>
-                        <input type="email" class="form-control" name="correo" id="correo1" placeholder="Ingrese su correo electronico">
-                        <small id="emailHelp" class="form-text text-muted">Nunca mostraremos su correo a nadie fuera de la aplicacion</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="contra">Contraseña</label>
-                        <input type="password" class="form-control" name="contra" id="contra" placeholder="Ingrese su contraseña">
-                    </div>
-                    <div class="form-group">
-                        <label for="nom">Nombre</label>
-                        <input type="text" class="form-control" name="nombre" id="nom" placeholder="Ingrese su nombre completo">                    
-                    </div>
-                    <div class="form-group">
-                        <label for="rut">RUT</label>
-                        <input type="text" class="form-control" name="rut" id="rut" placeholder="Ingrese su RUT">                    
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Telefono</label>
-                        <input type="number" class="form-control" name="telefono" id="telefono" placeholder="Ingrese su numero de telefono">                    
-                    </div>
-                    <div class="form-group">
-                        <label for="esp">Especialidad medica</label>
-                        <select class="form-control" name="especialidad" name="especialidad" id="esp" >
-                            <option value="">1</option>
-                        </select>                   
-                    </div>
-                    <div class="row ">
-                            <label for="">Horas de trabajo</label>
-                    </div>
-                            <div class="form-group">
-                                <div class="row">                                
-                                    <div class="col-md-6">
-                                            <label for="">Inicio</label>
-                                            <select name="" id="">
-                                                <option value="0">0</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                            </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                            <label for="">Fin</label>
-                                            <select name="" id="">
-                                                    <option value="0">0</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
-                                                    <option value="13">13</option>
-                                                    <option value="14">14</option>
-                                                    <option value="15">15</option>
-                                                    <option value="16">16</option>
-                                                    <option value="17">17</option>
-                                                    <option value="18">18</option>
-                                                    <option value="19">19</option>
-                                                    <option value="20">20</option>
-                                                    <option value="21">21</option>
-                                                    <option value="22">22</option>
-                                                    <option value="23">23</option>
-                                            </select>
-                                    </div> 
-                                </div>
-                            </div>
-                                                      
-                    
-                    <div class="form-group">
-                        <label for="archivo">Suba su titulo porfavor</label>
-                        <input type="file" class="form-control-file" name="archivo" id="archivo">
-                    </div>
-                   
-                    
-                    <button type="submit" class="btn btn-primary">Submit</button>
-        
-        
-            </div>  
-            <div class="col-md-4"></div>
-        </div>
-    </form>
-</div>
+
 <div id="form_rep">
     
     <form id="form_c_rep" action="{% url 'agregar_rep' %}" method="post">

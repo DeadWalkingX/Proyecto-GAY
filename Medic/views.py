@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Paciente, Medico, Repartidor, MedicoPostulante
-from django.contrib.auth.models import User
+from Usuarios.models import User
 from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponse
 
@@ -14,8 +14,7 @@ def index(request):
 def registro(request):
     return render(request,'registro.html')
 
-def iniciar(request):
-    return render(request,'login.html')
+
 
 def exp(request):
     return render(request,'horariosM.html')
@@ -35,22 +34,7 @@ def mantenedor(request):
     med_pos = MedicoPostulante.objects.all()
     contexto = {'pacientes':pacientes, 'medicos':medicos, 'repartidores':repartidores,'usuarios':usuarios, 'med_pos':med_pos}
     return render(request, 'mantenedor.html', contexto)
-#LOGIN
 
-def login_iniciar(request):
-    username = request.POST.get('correo')
-    password = request.POST.get('contra')
-    user = authenticate(request,username=username, password=password)
-    print(username,password)
-    if user is not None:
-        login(request, user)
-        return HttpResponse('<script>alert("Inicio de sesión correcto."); window.location.href="/";</script>')
-    else:
-        return HttpResponse('<script>alert("Ocurrió un error, intenta nuevamente..."); window.location.href="/";</script>')
-
-def logout_view(request):
-    logout(request)
-    return redirect('home')
 
 # CRUD Pacientes
 
@@ -65,13 +49,17 @@ def crear_pac(request):
     direccion = request.POST.get('direc')
     observacion = request.POST.get('observacion')
     estado = request.POST.get('estado')
+    lista = Paciente.objects.all()
+    for p in lista:
+        if(p.correo == correo):
+            return HttpResponse('<script>alert("Ya hay alguien registrado con ese correo electronico."); window.location.href="/";</script>')
     pac = Paciente(rut=rut, correo=correo, nombre=nombre, fechanac=fechanac,
      telefono=telefono, telefonoEmergencias=telefonoEmergencias, direccion=direccion,
      observacion = observacion, estado = estado)
     pac.save()
-    user = User.objects.create_user(username=correo,email=correo,password=contra)
+    user = User.objects.create_user(email=correo, password=contra, tipo='pac')
     user.save()
-    return redirect('login')
+    return redirect('Usuarios:log')
 
 def editar_pac(request, id_pac):
     paciente = Paciente.objects.get(pk=id_pac)
@@ -87,6 +75,11 @@ def editar_pac(request, id_pac):
     paciente.direccion = direccion
     return redirect('mantenedor')
 
+def eliminar_pac(request, id_pac):
+    p = Paciente.objects.get(id=id_pac)
+    p.delete()
+    return redirect('mantenedor')
+
 
 #CRUD Medicos
 def crear_med(request, id_med):
@@ -98,12 +91,16 @@ def crear_med(request, id_med):
     telefono = agregado.telefono
     archivo = agregado.archivo
     especialidad = agregado.especialidad
+    lista = Medico.objects.all()
+    for m in lista:
+        if(m.correo == correo):
+            return HttpResponse('<script>alert("Ya hay alguien registrado con ese correo electronico."); window.location.href="/";</script>')
     med = Medico(rut=rut, nombre=nombre, telefono=telefono, contrasenia=contra, 
      archivo=archivo, especialidad=especialidad, correo=correo)
     med.save()    
-    user = User.objects.create_user(username=correo,email=correo,password=contra)
+    user = User.objects.create_user(email=correo,password=contra, tipo='med')
     user.save()
-    return redirect('login')
+    return redirect('mantenedor')
 
 #CRUD Medicos Postulantes
 def crear_med_pos(request):
@@ -114,10 +111,14 @@ def crear_med_pos(request):
     telefono = request.POST.get('telefono')
     archivo = request.Files.get('archivo')
     especialidad = request.POST.get('especialidad')
-    med = Medico(rut=rut, nombre=nombre, telefono=telefono, contrasenia=contra, 
+    lista = MedicoPostulante.objects.all()
+    for mp in lista:
+        if(mp.correo == correo):
+            return HttpResponse('<script>alert("Ya hay alguien registrado con ese correo electronico."); window.location.href="/";</script>')
+    med = MedicoPostulante(rut=rut, nombre=nombre, telefono=telefono, contrasenia=contra, 
      archivo=archivo, especialidad=especialidad, correo=correo)
-    med.save()    
-    return redirect('login')
+    med.save() 
+    return redirect('Usuarios:log')
 
 #CRUD Repartidores
 def crear_rep(request):
@@ -126,8 +127,30 @@ def crear_rep(request):
     rut = request.POST.get('rut')
     nombre = request.POST.get('nombre')    
     telefono = request.POST.get('telefono')   
+    lista = Repartidor.objects.all()
+    for r in lista:
+        if(r.correo == correo):
+            return HttpResponse('<script>alert("Ya hay alguien registrado con ese correo electronico."); window.location.href="/";</script>')
     rep = Repartidor(rut=rut, nombre=nombre, celular=telefono, correo=correo)
-    rep.save()
-    user = User.objects.create_user(username=correo,email=correo,password=contra)
+    rep.save()    
+    user = User.objects.create_user(email=correo,password=contra,tipo='rep')
     user.save()
-    return redirect('login')
+    return redirect('Usuarios:log')
+
+def editar_rep(request, id_rep):
+    r = Repartidor.objects.get(id=id_rep)
+    nombre = request.POST.get('nombre') 
+    rut = request.POST.get('rut')
+    correo = request.POST.get('correo')
+    telefono = request.POST.get('telefono') 
+    r.nombre = nombre
+    r.rut = rut 
+    r.correo = correo
+    r.telefono = telefono
+    r.save()
+    return redirect('mantenedor')
+
+def eliminar_rep(request, id_rep):
+    r = Repartidor.objects.get(id=id_rep)
+    r.delete()
+    return redirect('mantenedor')

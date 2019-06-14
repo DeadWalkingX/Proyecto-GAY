@@ -28,13 +28,13 @@
                       Registrarse
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <a class="dropdown-item" onclick="pac()" href="{% url 'registro' %}">Paciente</a>
-                      <a class="dropdown-item" onclick="med()" href="{% url 'registro' %}">Medico</a>
-                      <a class="dropdown-item" onclick="rep()" href="{% url 'registro' %}">Repartidor</a>
+                      <a class="dropdown-item" href="{% url 'registro' %}">Paciente</a>
+                      <a class="dropdown-item" href="{% url 'registro' %}">Medico</a>
+                      <a class="dropdown-item" href="{% url 'registro' %}">Repartidor</a>
                     </div>
                   </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a>
+                  <a class="nav-link" href="{% url 'Usuarios:log' %}">Iniciar sesion</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active" href="{% url 'mantenedor' %}" >Disabled</a>
@@ -50,17 +50,18 @@
 
 
   <div class="row">
-      <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
       <div class="col-md-4">
-        <form action="{% url 'iniciar' %}">
+        <form action="{% url 'Usuarios:iniciar' %}" method="POST">
+        {% csrf_token %}
           <h1>Inicio Sesion</h1>
           <div class="form-group">
             <h3>Correo:</h3>
-            <input class="form-control" type="email" name="correo" placeholder="Ingrese su correo">
+            <input class="form-control" type="email" name="correo" id="correo" placeholder="Ingrese su correo">
           </div>
           <div class="form-group">
             <h3>Contraseña:</h3>
-            <input class="form-control" type="password" name="contra" placeholder="Ingrese contraseña" >
+            <input class="form-control" type="password" name="contra" id="contra" placeholder="Ingrese contraseña" >
           </div>
           <div class="row">
             <div class="col-md-6">
@@ -70,11 +71,9 @@
               <button class="btn btn-primary" type="submit">Ingresar</button>
             </div>
           </div>
-
         </form>
       </div>
-      <div class="col-md-4"></div>
-
+    <div class="col-md-4"></div>
   </div>
 
 
