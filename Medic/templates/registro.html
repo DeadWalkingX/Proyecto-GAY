@@ -79,11 +79,11 @@
     <div class="col-md-4" align = center>
         <h3>Repartidor</h3>
         <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-        <a class="btn btn-danger" href="#form_med">Registrarse como repartidor</a>
+        <a class="btn btn-danger" href="#form_rep">Registrarse como repartidor</a>
     </div>
 </div>
 
-    <div id="form_pac" class="modalDialog">
+    <div id="form_pac" class="modalDialog" style="overflow-y: scroll;">
         <div>
             <a href="#close" title="Close" class="close">X</a>    
             <form action="{% url 'agregar_pac' %}" id="form_c_pac" method="POST">
@@ -105,12 +105,13 @@
                 <input type="number" class="form-control" id="telefono2" name="telefono2" placeholder="Ingrese el numero de telefono de un contacto en caso de emergencias"> 
                 <label for="direc">Direccion</label>
                 <input type="text" class="form-control" name="direc" id="direc" placeholder="Ingrese su direccion"> 
+                <br>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>                                  
         </div>
     </div>
 
-<div class="modalDialog" id="form_med">
+<div class="modalDialog" id="form_med" style="overflow-y: scroll;">
     <div>
         <a href="#close" title="Close" class="close">X</a>    
         <form id="form_c_med" action="{% url 'agregar_med_pos' %}" method="post">
@@ -159,6 +160,7 @@
                 <option value="22">22</option>
                 <option value="23">23</option>
             </select>
+            <br>
             <label for="">Fin</label>
             <select name="" id="">
                     <option value="-1">Seleccione una hora</option>
@@ -187,53 +189,38 @@
                     <option value="22">22</option>
                     <option value="23">23</option>
             </select>
+            <br>
             <label for="archivo">Suba su titulo porfavor</label>
             <input type="file" class="form-control-file" name="archivo" id="archivo">
+            <br>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </div>
 
-<div id="form_rep">
-    
-    <form id="form_c_rep" action="{% url 'agregar_rep' %}" method="post">
+
+<div class="modalDialog" id="form_rep">
+    <div>
+        <a href="#close" title="Close" class="close">X</a>    
+        <form id="form_c_rep" action="{% url 'agregar_rep' %}" method="post">
             {% csrf_token %}
-            <div class="row">
-                <div class="col-md-4">
-                        <img src="{% static 'img/fichero.jpg' %}" class="img-fluid" style="height: 350px; margin: 20px;">
-                </div>
-                <div class="col-md-4">
-                        <h2>Porfavor ingrese su datos correctamente(Repartidor)</h2>
-                        <div class="form-group">
-                            <label for="correo1">Correo electronico</label>
-                            <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingrese su correo electronico">
-                            <small id="emailHelp" class="form-text text-muted">Nunca mostraremos su correo a nadie fuera de la aplicacion</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="contra">Contraseña</label>
-                            <input type="password" class="form-control" id="contra" name="contra" placeholder="Ingrese su contraseña">
-                        </div>
-                        <div class="form-group">
-                            <label for="nom">Nombre</label>
-                            <input type="text" class="form-control" id="nom" name="nombre" placeholder="Ingrese su nombre completo">                    
-                        </div>
-                        <div class="form-group">
-                            <label for="rut">RUT</label>
-                            <input type="text" class="form-control" id="rut" name="rut" placeholder="Ingrese su RUT">                    
-                        </div>
-                        <div class="form-group">
-                            <label for="telefono">Telefono</label>
-                            <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su numero de telefono">                    
-                        </div>
-                      
-                       
-                        
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-                <div class="col-md-4"></div>
-            </div>
+            <h2>Porfavor ingrese su datos correctamente</h2>
+            <label for="correo1">Correo electronico</label>
+            <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingrese su correo electronico">
+            <label for="contra">Contraseña</label>
+            <input type="password" class="form-control" id="contra" name="contra" placeholder="Ingrese su contraseña">
+            <label for="nom">Nombre</label>
+            <input type="text" class="form-control" id="nom" name="nombre" placeholder="Ingrese su nombre completo">                    
+            <label for="rut">RUT</label>
+            <input type="text" class="form-control" id="rut" name="rut" placeholder="Ingrese su RUT">  
+            <label for="telefono">Telefono</label>
+            <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su numero de telefono">           
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+</div>
+
         
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

@@ -36,7 +36,7 @@
                   </div>
                 </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a>
+                <a class="nav-link" href="{% url 'Usuarios:log' %}">Iniciar sesion</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="{% url 'mantenedor' %}" >Disabled</a>
@@ -56,6 +56,7 @@
           <td>NOMBRE</td>
           <td>DIRECCION</td>
           <td>FECHA NACIMIENTO</td>
+          <td>ESTADO</td>
           <td>OBSERVACION DE ATENCION</td>
       </tr>
   </thead>
@@ -67,46 +68,21 @@
           <td>{{p.nombre}}</td>
           <td>{{p.direccion}}</td>
           <td>{{p.fechanac}}</td>
+          <td>{{p.estado}}</td>
           <td>{{p.observacion}}</td>
 
 
 
           {% endfor %}
           {% else %}
+          <h4>No hay registros</h4>
           {% endif %}
      </tr>
   </tbody>
 </table> 
 <br>
-<h4>Clasificacion de los pacientes</h4>
-<table class="table table-bordered">
-  <thead>
-      <tr>
-          <td>RUT</td>
-          <td>NOMBRE</td>
-          <td>DIRECCION</td>
-          <td>FECHA NACIMIENTO</td>
-          <td>ESTADO DE PACIENTE</td>
-      </tr>
-  </thead>
-  <tbody>
-     <tr>
-          {% if pacientes %}
-          {% for p in pacientes %}
-          <td>{{p.rut}}</td>
-          <td>{{p.nombre}}</td>
-          <td>{{p.direccion}}</td>
-          <td>{{p.fechanac}}</td>
-          <td>{{p.estado}}</td>
 
 
-
-          {% endfor %}
-          {% else %}
-          {% endif %}
-     </tr>
-  </tbody>
-</table>
 
 
 

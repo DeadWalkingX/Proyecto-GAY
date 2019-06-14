@@ -25,41 +25,119 @@
               <li class="nav-item active">
                 <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="{% url 'registro' %}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Registrarse
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" onclick="pac()" href="{% url 'registro' %}">Paciente</a>
-                    <a class="dropdown-item" onclick="med()" href="{% url 'registro' %}">Medico</a>
-                    <a class="dropdown-item" onclick="rep()" href="{% url 'registro' %}">Repartidor</a>
-                  </div>
-                </li>
+
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a>
+                <a class="nav-link active" href="{% url 'informacion' %}" >Informacion de pacientes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="{% url 'mantenedor' %}" >Disabled</a>
+                <a class="nav-link active" href="{% url 'observacion' %}" >Observacion para paciente  </a>
               </li>
               <li class="nav-item">
                   <a class="nav-link active" href="{% url 'ex' %}" >ex</a>
                 </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'tomarHorarios' %}"></a>
+              </li>
+          </ul>
+          <ul class="navbar-nav ml-auto" >
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link active" href="{% url 'Usuarios:logout' %}" >Cerrar Sesion</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                  <a class="nav-link" href="{% url 'registro' %}">Registrarse</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'Usuarios:log' %}">Iniciar sesion</a>
+            </li>
+
+            {% endif %}
+
+
           </ul>
       </div>
   </nav>
-
-  
 <!-----------------------NAVBAR-------------------->
     
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <h3 align = center>Selectione las horas en que desea trabajar</h3>
+    <form>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Inicio</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+          <option value="-1">Seleccione una hora</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+          <option value="17">17</option>
+          <option value="18">18</option>
+          <option value="19">19</option>
+          <option value="20">20</option>
+          <option value="21">21</option>
+          <option value="22">22</option>
+          <option value="23">23</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Fin</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+            <option value="-1">Seleccione una hora</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  <div class="col-md-4"></div>
 
-
+</div>
 
 
 
 
 
 <!-----------FOOTER-->
-<footer style="background-color: rgba(32, 62, 163, 1) " class="fixed-bot page-footer  font-small pt-4">
+<footer style="background-color: rgba(32, 62, 163, 1) " class="fixed-bottom page-footer  font-small pt-4">
     <div  style="color: white;" class="container-fluid text-center text-md-left">
       <div class="row">
         <div class="col-md-6 mt-md-0 mt-3">

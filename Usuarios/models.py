@@ -5,13 +5,14 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 # Create your models here.
 class UserManager(BaseUserManager):
 
-  def _create_user(self, email, password, is_staff, is_superuser, tipo):
+  def _create_user(self, email, rut,  password, is_staff, is_superuser, tipo):
     if not email:
         raise ValueError('Users must have an email address')
     now = timezone.now()
     email = self.normalize_email(email)
     user = self.model(
         email=email,
+        rut = rut,
         is_staff=is_staff, 
         is_active=True,
         is_superuser=is_superuser,
@@ -22,11 +23,11 @@ class UserManager(BaseUserManager):
     user.save(using=self._db)
     return user
 
-  def create_user(self, email, password, tipo):
-    return self._create_user(email, password, False, False, tipo)
+  def create_user(self, email, rut, password, tipo):
+    return self._create_user(email, rut, password, False, False, tipo)
 
-  def create_superuser(self, email, password):
-    user=self._create_user(email, password, True, True, 'super')
+  def create_superuser(self, email, rut, password):
+    user=self._create_user(email, rut, password, True, True, 'super')
     user.save(using=self._db)
     return user
 
@@ -34,6 +35,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=254, unique=True)
     name = models.CharField(max_length=254, null=True, blank=True)
+    rut = models.CharField(max_length=254, null=True, blank=True)
     tipo = models.CharField(max_length=254, null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
