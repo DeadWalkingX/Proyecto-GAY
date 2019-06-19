@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Paciente, Medico, Repartidor, MedicoPostulante, HoraLibre, HoraTomada
+from .models import Paciente, Medico, Repartidor, MedicoPostulante, HoraLibre, HoraTomada, Historial
 from Usuarios.models import User
 from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponse
@@ -24,7 +24,8 @@ def defHora(request):
 
 def listadoPac(request):
     pacientes = Paciente.objects.all()
-    contexto = {'pacientes':pacientes}
+    historial = Historial.objects.all()
+    contexto = {'pacientes':pacientes, 'historial':historial}
     return render(request,"pacientes.html",contexto)
 
 def observacion(request):
@@ -38,8 +39,9 @@ def mantenedor(request):
     med_pos = MedicoPostulante.objects.all()
     horalibre = HoraLibre.objects.all()
     horatomada = HoraTomada.objects.all()
+    historial = Historial.objects.all()
 
-    contexto = {'pacientes':pacientes, 'horaslibres':horalibre, 'medicos':medicos, 'repartidores':repartidores,'usuarios':usuarios, 'med_pos':med_pos, 'horaTomada':horatomada}
+    contexto = {'pacientes':pacientes, 'horaslibres':horalibre, 'medicos':medicos, 'repartidores':repartidores,'usuarios':usuarios, 'med_pos':med_pos, 'historial':historial, 'horaTomada':horatomada}
     return render(request, 'mantenedor.html', contexto)
 
 def perfil(request):
@@ -215,11 +217,7 @@ def eliminar_horaTomada(request):
 def crear_ht(request,rutMedico,hora,fecha):
         horaslibres = HoraLibre.objects.all()
         for hl in horaslibres:
-                print(hl.rutMedico,'=',rutMedico)
-                print(hl.hora,'=',hora)
-                print(hl.fecha,'=',fecha)
                 if( int(hl.rutMedico) == rutMedico and int(hl.hora) == hora and str(hl.fecha) == fecha):
-
                         hl.delete()
                         ht = HoraTomada(rutMedico=rutMedico, rutPaciente=request.user.rut, hora=hora, fecha=fecha)
                         ht.save()
@@ -227,6 +225,14 @@ def crear_ht(request,rutMedico,hora,fecha):
         
         return redirect('perfil')
 
-        
+#Crud Historial
 
-
+def crear_historial(request, rutPaciente, hora, fecha):
+        observacion = request.POST.get('observacion')
+        ht = HoraTomada.objects.all()
+        for hi in ht:
+                if(hi.rutPaciente == rutPaciente and hi.hora == hora and hi.fecha ==fecha):
+                        hi.delete()
+        h = Historial(rutPaciente = rutPaciente, fecha = fecha, hora = hora, observacion = observacion)
+        h.save()
+        return redirect('perfil')

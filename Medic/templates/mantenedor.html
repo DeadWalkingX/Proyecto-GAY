@@ -14,75 +14,60 @@
 <body>
     <!-----------------------NAVBAR-------------------->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" role="navigation" style="background-color: rgba(32, 62, 163, 1)  ;">
-      <a class="navbar-brand" href="#"> <img class="img-fluid" src="{% static 'img/Logo.png' %}" id="img_tno"  alt="Logo"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
-              </li>
-              {% if user.is_authenticated %}
-              {% if user.tipo == 'pac' %}
-
-              {% endif %}
-
-              {% if user.tipo == 'med' %}
-              <li class="nav-item">
-                <a class="nav-link active" href="{% url 'informacion' %}" >Informacion de pacientes</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="{% url 'observacion' %}" >Observacion para paciente  </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'tomarHorarios' %}">Asignar horas</a>
-              </li>
-              {% endif %}
-
-              {% if user.tipo == 'rep' %}
-
-              {% endif %}
-
-              <li class="nav-item">
-                  <a class="nav-link active" href="{% url 'ex' %}" >ex</a>
+        <a class="navbar-brand" href="#"> <img class="img-fluid" src="{% static 'img/Logo.png' %}" id="img_tno"  alt="Logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
                 </li>
-
-              {% endif %}
-
-              {% if user.tipo == 'super' %}
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'perfil' %}" >Perfil</a>
+                </li>
+                {% if user.tipo == 'pac' %}
+  
+                {% endif %}
+  
+                {% if user.tipo == 'med' %}
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'informacion' %}" >Informacion de pacientes</a>
+                </li>
+                {% endif %}
+  
+                {% if user.tipo == 'rep' %}
+  
+                {% endif %}
+                {% endif %}
+  
+                {% if user.tipo == 'super' %}
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'mantenedor' %}" >mantenedor</a>
+                </li>
+                {% endif %}
+                
+            </ul>
+            <ul class="navbar-nav ml-auto" >
+              {% if user.is_authenticated %}
+              <li class="nav-item dropdown">
+                  <a class="nav-link active" href="{% url 'Usuarios:logout' %}" >Cerrar Sesion</a>
+              </li>
+              {% else %}
+              <li class="nav-item dropdown">
+                <a class="nav-link active" href="{% url 'registro' %}" >Registrarse</a>
+              </li>
               <li class="nav-item">
-                <a class="nav-link active" href="{% url 'mantenedor' %}" >mantenedor</a>
+                  <a class="nav-link" href="{% url 'Usuarios:log' %}">Iniciar sesion</a>
               </li>
+  
               {% endif %}
-              
-          </ul>
-          <ul class="navbar-nav ml-auto" >
-            {% if user.is_authenticated %}
-            <li class="nav-item dropdown">
-                <a class="nav-link active" href="{% url 'Usuarios:logout' %}" >Cerrar Sesion</a>
-            </li>
-            {% else %}
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="{% url 'registro' %}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Registrarse
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" onclick="pac()" href="{% url 'registro' %}">Paciente</a>
-                  <a class="dropdown-item" onclick="med()" href="{% url 'registro' %}">Medico</a>
-                  <a class="dropdown-item" onclick="rep()" href="{% url 'registro' %}">Repartidor</a>
-                </div>
-              </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'Usuarios:log' %}">Iniciar sesion</a>
-            </li>
-
-            {% endif %}
-
-
-          </ul>
-      </div>
-  </nav>
+  
+  
+            </ul>
+        </div>
+    </nav>
 
 <!-----------------------NAVBAR-------------------->
 
@@ -492,6 +477,34 @@
   </tbody>
 </table>
 <!-----------------------TABLA HORAS TOMADAS--------------------->
+<!-----------------------TABLA HISTORIAL------------------------->
+<h1>Listado de Historiales</h1>
+{% if historial %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <td>RutPaciente</td>
+      <td>Fecha</td>
+      <td>Hora</td>
+      <td>observacion</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ht in historial %}
+      <tr>
+        <td>{{ht.rutPaciente}}</td>
+        <td>{{ht.fecha}}</td>
+        <td>{{ht.hora}}</td>
+        <td>{{ht.observacion}}</td>
+      </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+{% else %}
+<h1>No hay registros</h1>
+{% endif %}
+<!-----------------------TABLA HISTORIAL------------------------->
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

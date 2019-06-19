@@ -41,6 +41,9 @@ urlpatterns = [
     path('perfil/crearHT/<int:rutMedico>/<int:hora>/<str:fecha>', views.crear_ht, name="crearHT"),
     path('perfil/eliminarHT', views.eliminar_horaTomada, name="eliminarHT"),
 
+    #Historial
+    path('perfil/crearHis/<str:rutPaciente>/<int:hora>/<str:fecha>', views.crear_historial, name="crearHis"),
+
 
 
 

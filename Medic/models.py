@@ -48,5 +48,11 @@ class HoraTomada(models.Model):
     hora = models.IntegerField()
     fecha = models.CharField(max_length=100)
 
+class Historial(models.Model):
+    rutPaciente = models.CharField(max_length=100)
+    hora = models.IntegerField()
+    fecha = models.CharField(max_length=100)
+    observacion = models.CharField(max_length=100)
+
 
 
