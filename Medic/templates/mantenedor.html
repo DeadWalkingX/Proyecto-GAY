@@ -14,55 +14,76 @@
 <body>
     <!-----------------------NAVBAR-------------------->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" role="navigation" style="background-color: rgba(32, 62, 163, 1)  ;">
-        <a class="navbar-brand" href="#"> <img class="img-fluid" src="{% static 'img/Logo.png' %}" id="img_tno"  alt="Logo"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
-                </li>
-  
-                <li class="nav-item">
-                  <a class="nav-link active" href="{% url 'informacion' %}" >Informacion de pacientes</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="{% url 'observacion' %}" >Observacion para paciente  </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'ex' %}" >ex</a>
-                  </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'tomarHorarios' %}"></a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto" >
+      <a class="navbar-brand" href="#"> <img class="img-fluid" src="{% static 'img/Logo.png' %}" id="img_tno"  alt="Logo"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+              </li>
               {% if user.is_authenticated %}
-              <li class="nav-item dropdown">
-                  <a class="nav-link active" href="{% url 'Usuarios:logout' %}" >Cerrar Sesion</a>
-              </li>
-              {% else %}
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="{% url 'registro' %}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Registrarse
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" onclick="pac()" href="{% url 'registro' %}">Paciente</a>
-                    <a class="dropdown-item" onclick="med()" href="{% url 'registro' %}">Medico</a>
-                    <a class="dropdown-item" onclick="rep()" href="{% url 'registro' %}">Repartidor</a>
-                  </div>
-                </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{% url 'Usuarios:log' %}">Iniciar sesion</a>
-              </li>
-  
+              {% if user.tipo == 'pac' %}
+
               {% endif %}
-  
-  
-            </ul>
-        </div>
-    </nav>
+
+              {% if user.tipo == 'med' %}
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'informacion' %}" >Informacion de pacientes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'observacion' %}" >Observacion para paciente  </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'tomarHorarios' %}">Asignar horas</a>
+              </li>
+              {% endif %}
+
+              {% if user.tipo == 'rep' %}
+
+              {% endif %}
+
+              <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'ex' %}" >ex</a>
+                </li>
+
+              {% endif %}
+
+              {% if user.tipo == 'super' %}
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'mantenedor' %}" >mantenedor</a>
+              </li>
+              {% endif %}
+              
+          </ul>
+          <ul class="navbar-nav ml-auto" >
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link active" href="{% url 'Usuarios:logout' %}" >Cerrar Sesion</a>
+            </li>
+            {% else %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{% url 'registro' %}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Registrarse
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" onclick="pac()" href="{% url 'registro' %}">Paciente</a>
+                  <a class="dropdown-item" onclick="med()" href="{% url 'registro' %}">Medico</a>
+                  <a class="dropdown-item" onclick="rep()" href="{% url 'registro' %}">Repartidor</a>
+                </div>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'Usuarios:log' %}">Iniciar sesion</a>
+            </li>
+
+            {% endif %}
+
+
+          </ul>
+      </div>
+  </nav>
+
 <!-----------------------NAVBAR-------------------->
 
 <!------------------------TABLA PACIENTES------------------------>
@@ -154,19 +175,48 @@
     <tbody>
        
             {% if med_pos %}
-            {% for p in med_pos %}
+            {% for mp in med_pos %}
             <tr>
-            <td>{{p.rut}}</td>
-            <td>{{p.nombre}}</td>
-            <td>{{p.correo}}</td>
-            <td>{{p.telefono}}</td>
-            <td>{{p.especialidad}}</td>
-            <td>{{p.archivo}}</td>
+            <td>{{mp.rut}}</td>
+            <td>{{mp.nombre}}</td>
+            <td>{{mp.correo}}</td>
+            <td>{{mp.telefono}}</td>
+            <td>{{mp.especialidad}}</td>
+            <td>{{mp.archivo}}</td>
             <td>
-                <a class="btn btn-danger" href="#editar_medpos{{r.id}}">Editar</a>
-                <a class="btn btn-danger" href="#eliminar_medpos{{r.id}}">Eliminar</a>
+                <a class="btn btn-primary" href="#agregar_med{{mp.id}}">agregar</a>
+                <a class="btn btn-danger" href="#eliminar_medpos{{mp.id}}">Eliminar</a>
             </td>
             </tr>
+
+            <div id="agregar_med{{mp.id}}" class="modalDialog">
+              <div>
+                <a href="#close" title="Close" class="close">X</a>                                      
+                <form action="agregar_med/{{mp.id}}" method="POST" >
+                  {% csrf_token %}
+                  <h4>¿Esta seguro de agregar este Medico postulante?</h4>
+                  <button class="btm btn-danger"  type="submit">Si, agregar</button>
+                  <a class="btn btn-default" href="{% url 'mantenedor' %}">Cancelar</a>                      
+                </form>
+              </div>
+            </div>
+
+          <div id="eliminar_medpos{{mp.id}}" class="modalDialog">
+            <div>
+              <a href="#close" title="Close" class="close">X</a>                                      
+              <form action="eliminar_medpos/{{mp.id}}" method="POST" >
+                {% csrf_token %}
+                <h4>¿Esta seguro de eliminar este Medico Postulante?</h4>
+                <button class="btm btn-danger"  type="submit">Si, eliminar</button>
+                <a class="btn btn-default" href="{% url 'mantenedor' %}">Cancelar</a>                      
+              </form>
+            </div>
+          </div>
+
+
+
+
+
             {% endfor %}
             {% else %}
             <h3>No hay registros</h3>
@@ -193,7 +243,7 @@
     <tbody>
        
             {% if medicos %}
-            {% for p in medico %}
+            {% for p in medicos %}
             <tr>
             <td>{{p.rut}}</td>
             <td>{{p.nombre}}</td>
@@ -307,7 +357,73 @@
             </td>
         </tr>
 
-        <div id="editar{{u.id}}" class="modalDialog">
+        <div id="editar_usu{{u.id}}" class="modalDialog">
+                <div>
+                  <a href="#close" title="Close" class="close">X</a>                                      
+                  <form action="editar_usu/{{u.id}}" method="POST" enctype="multipart/form-data" >
+                    {% csrf_token %}
+                    <h4>Editor</h4>
+                    <label for="Nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" value={{r.nombre}}>
+                    <label for="rut"><b>Rut</b></label>
+                    <input type="text" name="rut" id="rut" value={{r.rut}}>
+                    <label for="correo">Correo</label>
+                    <input type="email" name="correo"  value={{r.correo}}>
+                    <label for="descripcion1">Telefono</label>
+                    <input type="number" name="telefono"  value={{r.celular}}>
+                    <button class="btm btn-danger"  type="submit">Editar</button>
+                    <a class="btn btn-default" href="{% url 'mantenedor' %}">Cancelar</a>                      
+                  </form>
+                </div>
+              </div>
+              <div id="eliminar_usu{{u.id}}" class="modalDialog">
+                <div>
+                  <a href="#close" title="Close" class="close">X</a>                                      
+                  <form action="eliminar_rep/{{u.id}}" method="POST" >
+                    {% csrf_token %}
+                    <h4>¿Esta seguro de eliminar este repartidor?</h4>
+                    <button class="btm btn-danger"  type="submit">Si, eliminar</button>
+                    <a class="btn btn-default" href="{% url 'mantenedor' %}">Cancelar</a>                      
+                  </form>
+                </div>
+              </div>
+
+
+        {% endfor %}
+        {% else %}
+        <h3>No hay registros</h3>
+        {% endif %}
+        
+    </tbody>
+</table>
+
+<!------------------------TABLA USUARIOS------------------------>
+
+<!-----------------------TABLA HORAS LIBRES--------------------->
+<h1>Listado de Horas Libres</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Rut Medico</td>
+            <td>Hora</td>   
+            <td>Fecha</td> 
+            <td>OPCIONES</td>        
+        </tr>
+    </thead>
+    <tbody>
+        {% if horaslibres %}
+        {% for hl in horaslibres %}
+        <tr>                   
+            <td>{{hl.rutMedico}}</td>
+            <td>{{hl.hora}}</td>
+            <td>{{hl.fecha}}</td>
+            <td>
+                <a class="btn btn-danger" href="#editar_hl{{hl.id}}">Editar</a>
+                <a class="btn btn-danger" href="#eliminar_hl{{hl.id}}">Eliminar</a>
+            </td>
+        </tr>
+
+        <div id="editar_hl{{hl.id}}" class="modalDialog">
                 <div>
                   <a href="#close" title="Close" class="close">X</a>                                      
                   <form action="editar_rep/{{u.id}}" method="POST" enctype="multipart/form-data" >
@@ -326,7 +442,7 @@
                   </form>
                 </div>
               </div>
-              <div id="eliminar{{p.id}}" class="modalDialog">
+              <div id="eliminar_hl{{hl.id}}" class="modalDialog">
                 <div>
                   <a href="#close" title="Close" class="close">X</a>                                      
                   <form action="eliminar_rep/{{r.id}}" method="POST" >
@@ -347,7 +463,35 @@
     </tbody>
 </table>
 
-<!------------------------TABLA USUARIOS------------------------>
+
+<!-----------------------TABLA HORAS LIBRES--------------------->
+<!-----------------------TABLA HORAS TOMADAS--------------------->
+<h1>Listado de Horas Tomadas</h1>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <td>RutMedico</td>
+      <td>RutPaciente</td>
+      <td>Fecha</td>
+      <td>Hora</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% if horaTomada %}
+    {% for ht in horaTomada %}
+      <tr>
+        <td>{{ht.rutMedico}}</td>
+        <td>{{ht.rutPaciente}}</td>
+        <td>{{ht.fecha}}</td>
+        <td>{{ht.hora}}</td>
+      </tr>
+    {% endfor %}
+    {% else %}
+    <h1>No hay registros</h1>
+    {% endif %}
+  </tbody>
+</table>
+<!-----------------------TABLA HORAS TOMADAS--------------------->
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

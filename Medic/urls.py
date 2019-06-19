@@ -12,9 +12,7 @@ urlpatterns = [
     path('informacion/', views.listadoPac, name="informacion"),
     path('observacion/', views.observacion, name="observacion"),
     path('mantenedor/', views.mantenedor, name="mantenedor"),
-    path('asignarHorarios/', views.defHora, name="tomarHorarios" ),
-
-    path('ex/', views.exp, name ="ex"),
+    path('perfil/',views.perfil, name="perfil"),
 
 
     #Links para CRUD
@@ -24,15 +22,26 @@ urlpatterns = [
     path('mantenedor/eliminar_pac/<int:id_pac>', views.eliminar_pac, name="eliminar_pac" ),
 
     #Medico
-    path('registro/agregar_med',views.crear_med ,name="agregar_med"),
+    path('mantenedor/agregar_med/<int:id_medpos>',views.crear_med ,name="agregar_med"),
+    path('mantenedor/eliminar_medpos/<int:id_medpos>', views.eliminar_medpos, name="eliminar_medpos" ),
 
     #Medico Postulante
-    path('registro/agregar_med',views.crear_med_pos ,name="agregar_med_pos"),
+    path('registro/agregar_med_pos',views.crear_med_pos ,name="agregar_med_pos"),
 
     #Repartidor
     path('registro/agregar_rep',views.crear_rep ,name="agregar_rep"),
     path('mantenedor/editar_rep/<int:id_rep>', views.editar_rep, name="editar_rep" ),
     path('mantenedor/eliminar_rep/<int:id_rep>', views.eliminar_rep, name="eliminarr_rep" ),
+
+    #Hora Libre
+    path('perfil/crearHoras', views.crear_horaLibre, name="crearHoras"),
+    path('perfil/eliminarHL', views.eliminar_horaLibre, name="eliminarHL"),
+
+    #Hora Tomada
+    path('perfil/crearHT/<int:rutMedico>/<int:hora>/<str:fecha>', views.crear_ht, name="crearHT"),
+    path('perfil/eliminarHT', views.eliminar_horaTomada, name="eliminarHT"),
+
+
 
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

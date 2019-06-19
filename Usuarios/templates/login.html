@@ -23,25 +23,55 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="{% url 'registro' %}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Registrarse
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <a class="dropdown-item" href="{% url 'registro' %}">Paciente</a>
-                      <a class="dropdown-item" href="{% url 'registro' %}">Medico</a>
-                      <a class="dropdown-item" href="{% url 'registro' %}">Repartidor</a>
-                    </div>
-                  </li>
+                {% if user.is_authenticated %}
                 <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'perfil' %}" >Perfil</a>
+                </li>
+                {% if user.tipo == 'pac' %}
+  
+                {% endif %}
+  
+                {% if user.tipo == 'med' %}
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'informacion' %}" >Informacion de pacientes</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'observacion' %}" >Observacion para paciente  </a>
+                </li>
+                {% endif %}
+  
+                {% if user.tipo == 'rep' %}
+  
+                {% endif %}
+                {% endif %}
+  
+                {% if user.tipo == 'super' %}
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'mantenedor' %}" >mantenedor</a>
+                </li>
+                {% endif %}
+                
+            </ul>
+            <ul class="navbar-nav ml-auto" >
+              {% if user.is_authenticated %}
+              <li class="nav-item dropdown">
+                  <a class="nav-link active" href="{% url 'Usuarios:logout' %}" >Cerrar Sesion</a>
+              </li>
+              {% else %}
+              <li class="nav-item dropdown">
+                <a class="nav-link active" href="{% url 'registro' %}" >Registrarse</a>
+              </li>
+              <li class="nav-item">
                   <a class="nav-link" href="{% url 'Usuarios:log' %}">Iniciar sesion</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="{% url 'mantenedor' %}" >Disabled</a>
-                </li>
+              </li>
+  
+              {% endif %}
+  
+  
             </ul>
         </div>
     </nav>
+
   
 <!-----------------------NAVBAR-------------------->
 

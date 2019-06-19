@@ -1,0 +1,498 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>perfil</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">    
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+
+</head>
+<body>
+        <!-----------------------NAVBAR-------------------->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" role="navigation" style="background-color: rgba(32, 62, 163, 1)  ;">
+            <a class="navbar-brand" href="#"> <img class="img-fluid" src="{% static 'img/Logo.png' %}" id="img_tno"  alt="Logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                      <a class="nav-link active" href="{% url 'perfil' %}" >Perfil</a>
+                    </li>
+                    {% if user.tipo == 'pac' %}
+      
+                    {% endif %}
+      
+                    {% if user.tipo == 'med' %}
+                    <li class="nav-item">
+                      <a class="nav-link active" href="{% url 'informacion' %}" >Informacion de pacientes</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="{% url 'observacion' %}" >Observacion para paciente  </a>
+                    </li>
+                    {% endif %}
+      
+                    {% if user.tipo == 'rep' %}
+      
+                    {% endif %}
+                    {% endif %}
+      
+                    {% if user.tipo == 'super' %}
+                    <li class="nav-item">
+                      <a class="nav-link active" href="{% url 'mantenedor' %}" >mantenedor</a>
+                    </li>
+                    {% endif %}
+                    
+                </ul>
+                <ul class="navbar-nav ml-auto" >
+                  {% if user.is_authenticated %}
+                  <li class="nav-item dropdown">
+                      <a class="nav-link active" href="{% url 'Usuarios:logout' %}" >Cerrar Sesion</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item dropdown">
+                    <a class="nav-link active" href="{% url 'registro' %}" >Registrarse</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'Usuarios:log' %}">Iniciar sesion</a>
+                  </li>
+      
+                  {% endif %}
+      
+      
+                </ul>
+            </div>
+        </nav>
+      <!-----------------------NAVBAR-------------------->
+    {% if user.is_authenticated %}
+      {% if user.tipo == 'pac' %}
+        {% if pacientes %}
+          {% for p in pacientes %}
+            {% if p.rut == user.rut %}
+              <div class="row" align = center>
+                <div class="col-md-6">
+                  <h3>Datos personales</h1>
+                  <p>Rut: {{p.rut}}</p>
+                  <label for="">Correo: {{p.correo}}</label><br>
+                  <label for="">Nombre: {{p.nombre}}</label> <br> 
+                  <label for="">Fecha nacimiento: {{p.fechanac}}</label> <br>
+                  <label for="">Telefono: {{p.telefono}}</label> <br>
+                  <label for="">Telefono de emergencias: {{p.telefonoEmergencias}}</label> <br>
+                  <label for="">Direccion: {{p.direccion}}</label> <br>
+                </div>
+                <div class="col-md-6">
+                  <h3>Acciones</h3>
+                  <a class="btn btn-primary" href="#editarperfil{{p.rut}}">Editar perfil</a>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#verMedicos">Ver Medicos</button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#verHorasTomadas{{p.rut}}">Ver Horas Tomadas</button>
+                  <!--Modal editar perfil-->
+                  <div class="modalDialog" id="editarperfil{{p.rut}}">
+                    <div>
+
+                    </div>
+                  </div>
+                  <!--Modal editar perfil-->
+                  <!--Modal tomar horas-->
+                    
+        
+                    <div class="modal fade" id="verHorasTomadas{{p.rut}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Horas Tomadas</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                              <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <td>RutMedico</td>
+                                      <td>Hora</td>
+                                      <td>Fecha</td>
+        
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for hl in horatomada %}
+                                      <tr>
+                                          {% csrf_token %}
+                                          <td >{{hl.rutMedico}}</td>
+                                          <td >{{hl.hora}}</td>
+                                          <td >{{hl.fecha}}</td>
+                                      </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="modal fade" id="verMedicos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Medicos Disponibles</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                              <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <td>RutMedico</td>
+                                      <td>Nombre</td>
+                                      <td>Telefono</td>
+                                      <td>Especialidad</td>
+                                      <td>Correo</td>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for m in medicos %}
+                                      <tr>
+                                          <td>{{m.rut}}</td>
+                                          <td>{{m.nombre}}</td>
+                                          <td>{{m.telefono}}</td>
+                                          <td>{{m.especialidad}}</td>
+                                          <td>{{m.correo}}</td>
+                                          <td>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#verHorasDisponibles{{m.rut}}">Horas Disponibles</button>
+                                          </td>
+                                      </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    
+
+
+                  <!--Modal tomar horas-->
+                  <!--Modal ver horas-->
+                  {% for m in medicos %}
+
+                  <div class="modal fade" id="verHorasDisponibles{{m.rut}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Horas disponibles</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <td>RutMedico</td>
+                                    <td>Hora</td>
+                                    <td>Fecha</td>
+      
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for hl in horalibre %}
+                                    <tr>
+                                      <form action="crearHT/{{hl.rutMedico}}/{{hl.hora}}/{{hl.fecha}}" method="POST">
+                                        {% csrf_token %}
+                                        {% if m.rut == hl.rutMedico %}
+                                        <td >{{hl.rutMedico}}</td>
+                                        <td >{{hl.hora}}</td>
+                                        <td >{{hl.fecha}}</td>
+                                        <td>
+                                          <button type="submit" class="btn btn-success">Tomar Hora</button>                                  
+                                        </td>
+                                        {% endif %}
+                                    </form>
+                                    </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {% endfor %}
+                  <!--Modal ver horas-->
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endif %}
+      {% if user.tipo == 'med' %}
+        {% if medicos %}
+          {% for p in medicos %}
+            {% if p.rut == user.rut %}
+              <div class="row" align = center>
+                <div class="col-md-6" >
+                  <h3>Datos personales</h1>
+                  <label for="">Rut: {{p.rut}}</label><br>
+                  <label for="">Correo: {{p.correo}}</label><br>
+                  <label for="">Nombre: {{p.nombre}}</label><br>
+                  <label for="">Telefono: {{p.telefono}}</label><br>
+                  <label for="">Especialidad: {{p.especialidad}}</label>     
+                </div>
+                <div class="col-md-6">
+                  <h3>Acciones</h3>
+                  <a class="btn btn-primary" href="">Editar Perfil</a>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#asignarHoras{{p.rut}}">Asignar Horas </button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#verHorasLibres{{p.rut}}">Ver Horas Libres </button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eliminarHorasLibres{{p.rut}}">Eliminar Horas Libres</button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eliminarHorasTomadas{{p.rut}}">Eliminar Horas Tomadas</button>
+
+                  <!--Modal Agregar Horas-->
+                  
+                  <div class="modal fade" id="asignarHoras{{p.rut}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Horas disponibles</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form method="POST" action="{% url 'crearHoras' %}">
+                            {% csrf_token %}
+                          <div class="form-group">
+                              <h3 align = center>Selectione las horas en que desea trabajar los proximos dos dias</h3>
+                            <label for="exampleFormControlSelect1">Inicio</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="inicio">
+                              <option value="-1">Seleccione una hora</option>
+                              <option value="0">0</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                              <option value="13">13</option>
+                              <option value="14">14</option>
+                              <option value="15">15</option>
+                              <option value="16">16</option>
+                              <option value="17">17</option>
+                              <option value="18">18</option>
+                              <option value="19">19</option>
+                              <option value="20">20</option>
+                              <option value="21">21</option>
+                              <option value="22">22</option>
+                              <option value="23">23</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleFormControlSelect1">Fin</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="fin">
+                                <option value="-1">Seleccione una hora</option>
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                              </select>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Crear Citas</button>
+                        </form>
+      
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--Modal Agregar Horas-->
+                  <!--Modal ver Horas-->
+                  
+                  <div class="modal fade" id="verHorasLibres{{p.rut}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Horas disponibles</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <td>Fecha</td>
+                                <td>Hora</td>
+                              </tr>
+                            </thead>
+                            <tbody> 
+                                {% if horalibre %}
+                                {% for hl in horalibre %}
+                                {% if hl.rutMedico == user.rut %}
+                                <tr>
+                                  <td>{{hl.fecha}}</td>
+                                  <td>{{hl.hora}}</td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                            </tbody>
+                          </table>
+      
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--Modal ver Horas-->
+                  <!--Modal Eliminar Horas Libres-->
+                  <div class="modal fade" id="eliminarHorasLibres{{p.rut}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Horas disponibles</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="eliminarHL" method="POST">
+                            {% csrf_token %}
+                            <h3>¿Esta seguro que desea eliminar las horas libres?</h3>
+                            <p>Las horas que esten tomadas aun seguiran creadas</p>
+                            <button type="submit" class="btn btn-danger">Si,Eliminar</button>
+                          </form>      
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Modal Eliminar Horas Libres-->
+                  <!--Modal Eliminar Horas Tomadas-->
+                  <div class="modal fade" id="eliminarHorasTomadas{{p.rut}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Horas disponibles</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="" method="POST">
+                            {% csrf_token %}
+                            <h3>¿Esta seguro que desea eliminar las horas tomadas?</h3>
+                            <button type="submit" class="btn btn-danger">Si,Eliminar</button>
+  
+                          </form>      
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Modal Eliminar Horas Tomadas-->
+
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endif %}
+      {% if user.tipo == 'rep' %}
+
+      {% endif %}
+
+    {% endif %}
+
+      <!-----------FOOTER-->
+<footer style="background-color: rgba(32, 62, 163, 1) " class="fixed-bottom page-footer  font-small pt-4">
+    <div  style="color: white;" class="container-fluid text-center text-md-left">
+      <div class="row">
+        <div class="col-md-6 mt-md-0 mt-3">
+          <h5  class="text-uppercase">Contactenos</h5>
+        </div>
+        <hr class="clearfix w-100 d-md-none pb-3">
+        <div class="col-md-3 mb-md-0 mb-3">
+          <h5   class="text-uppercase">Correo</h5>
+          <ul class="list-unstyled">
+            <li>
+              <p>MedicApp@medicapp</p>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-md-0 mb-3">
+          <h5 class="text-uppercase">Telefono</h5>
+          <ul class="list-unstyled">
+            <li>
+              <a >+569 4876 2924</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div  style="color: white;" class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a> MedicApp</a>
+    </div>  
+  </footer>  
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>   
+    <script src="{% static 'js/j.query.validate.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>
